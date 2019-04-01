@@ -11,10 +11,10 @@ public class String_contains_many {
     {
        int counts = 0;
        int index = str.indexOf(dst);
-       while(index!=-1){
+       while(index!=-1){                    //不存在返回-1
            counts++;
            index=index+dst.length();
-           index=str.indexOf(dst,index);//巧用indexof()
+           index=str.indexOf(dst,index);   //从下标为index开始匹配
        }
        return  counts;
     }
