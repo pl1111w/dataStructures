@@ -5,20 +5,17 @@ import lombok.Data;
 @Data
 public class ParentHeroNode {
 
-    private HeroNode headNode;
+    private HeroNode headNode=new HeroNode(0,"","");
 
-    public ParentHeroNode(HeroNode headNode) {
-        this.headNode = headNode;
-    }
-
-    public void addNode(HeroNode headNode) {
+    public void addNode(HeroNode node) {
+        HeroNode temp = this.headNode;
         while (true) {
-            if (this.headNode.getNext() == null) {
-                this.headNode.setNext(headNode);
+            if(temp.getNext()==null){
                 break;
-            } else {
-                this.headNode = this.headNode.getNext();
             }
+            temp=temp.getNext();
         }
+        temp.setNext(node);
+
     }
 }

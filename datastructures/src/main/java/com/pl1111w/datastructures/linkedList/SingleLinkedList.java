@@ -7,13 +7,16 @@ public class SingleLinkedList {
 
     public static void main(String[] args) {
 
-        ParentHeroNode parentHeroNode = new ParentHeroNode(new HeroNode(0,"",""));
         HeroNode node1= new HeroNode(1,"宋江","及时雨");
-        HeroNode node2= new HeroNode(2,"卢俊义","玉麒麟");
         HeroNode node3= new HeroNode(3,"吴用","智多星");
-        parentHeroNode.addNode(node1);
+        HeroNode node2= new HeroNode(2,"卢俊义","玉麒麟");
+        HeroNode node4= new HeroNode(4,"林冲","豹子头");
+
+        ParentHeroNode parentHeroNode = new ParentHeroNode();
         parentHeroNode.addNode(node2);
+        parentHeroNode.addNode(node1);
         parentHeroNode.addNode(node3);
+        parentHeroNode.addNode(node4);
         System.out.println(parentHeroNode.toString());
     }
 
