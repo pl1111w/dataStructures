@@ -1,7 +1,12 @@
 package com.pl1111w.datastructures.linkedList;
 
 import lombok.Data;
-
+/**
+ * @title: pl1111w
+ * @description: 链表类
+ * @author: Kris
+ * @date 2020/9/26 11:16
+ */
 @Data
 public class HeroNode {
 

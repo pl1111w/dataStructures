@@ -1,12 +1,18 @@
 package com.pl1111w.datastructures.linkedList;
 
 import lombok.Data;
-
+/**
+ * @title: pl1111w
+ * @description: 链表头节点
+ * @author: Kris
+ * @date 2020/9/26 11:16
+ */
 @Data
 public class ParentHeroNode {
 
     private HeroNode headNode = new HeroNode(0, "", "");
 
+    //无序添加
     public void addNode(HeroNode node) {
         HeroNode temp = this.headNode;
         while (true) {
@@ -19,6 +25,7 @@ public class ParentHeroNode {
 
     }
 
+    //有序添加
     public void addNodeByOrder(HeroNode heroNode) {
         //因为头节点不能动，因此我们仍然通过一个辅助指针(变量)来帮助找到添加的位置
         //因为单链表，因为我们找的temp 是位于 添加位置的前一个节点，否则插入不了
