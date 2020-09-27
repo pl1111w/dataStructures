@@ -1,6 +1,7 @@
 package com.pl1111w.datastructures.linkedList;
 
 import lombok.Data;
+
 /**
  * @title: pl1111w
  * @description: 链表main方法
@@ -12,10 +13,11 @@ public class SingleLinkedList {
 
     public static void main(String[] args) {
 
-        HeroNode node1= new HeroNode(1,"宋江","及时雨");
-        HeroNode node3= new HeroNode(3,"吴用","智多星");
-        HeroNode node2= new HeroNode(2,"卢俊义","玉麒麟");
-        HeroNode node4= new HeroNode(4,"林冲","豹子头");
+        HeroNode node1 = new HeroNode(1, "宋江", "及时雨");
+        HeroNode node3 = new HeroNode(3, "吴用", "智多星");
+        HeroNode node2 = new HeroNode(2, "卢俊义", "玉麒麟");
+        HeroNode node4 = new HeroNode(4, "林冲", "豹子头");
+        HeroNode node5 = new HeroNode(5, "华容", "小李广");
 
         ParentHeroNode parentHeroNode = new ParentHeroNode();
 //        parentHeroNode.addNode(node2);
@@ -28,7 +30,14 @@ public class SingleLinkedList {
         parentHeroNode.addNodeByOrder(node1);
         parentHeroNode.addNodeByOrder(node3);
         parentHeroNode.addNodeByOrder(node4);
-        System.out.println("顺序添加： "+parentHeroNode.toString());
+
+        System.out.println("顺序添加： " + parentHeroNode.toString());
+        node4.setNickName("林教头");
+        parentHeroNode.updateNode(node4);
+        parentHeroNode.updateNode(node5);
+
+        parentHeroNode.deleteNode(node4.getNo());
+        System.out.println(("删除一个节点： " + parentHeroNode.toString()));
     }
 
 }

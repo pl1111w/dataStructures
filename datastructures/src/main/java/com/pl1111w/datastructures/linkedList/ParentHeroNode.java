@@ -1,6 +1,7 @@
 package com.pl1111w.datastructures.linkedList;
 
 import lombok.Data;
+
 /**
  * @title: pl1111w
  * @description: 链表头节点
@@ -50,4 +51,50 @@ public class ParentHeroNode {
             temp.setNext(heroNode);
         }
     }
+
+    public void updateNode(HeroNode heroNode) {
+        HeroNode temp = this.headNode;
+        boolean update = false;
+        while (true) {
+            if (temp.getNext() == null) {
+                return;
+            } else {
+                if (temp.getNext().getNo() == heroNode.getNo()) {
+                    temp.setNext(heroNode);
+                    update = true;
+                    break;
+                }
+                temp = temp.getNext();
+            }
+        }
+        if (update) {
+            System.out.println("没找到更新的节点:" + heroNode);
+        } else {
+            System.out.println("更新HeroNode: " + headNode.toString());
+        }
+    }
+
+    public void deleteNode(int no) {
+        HeroNode temp = this.headNode;
+        while (true) {
+            if (temp.getNext() == null) {
+                break;
+            }else if(temp.getNext().getNo()==no){
+                temp.setNext(temp.getNext().getNext());
+                break;
+            }else {
+                if (temp.getNext().getNext() == null) {
+                    System.out.println("没找到删除节点：" + no);
+                    break;
+                } else if (temp.getNext().getNext().getNo() == no) {
+                    HeroNode beforeOfDelete = temp.getNext();
+                    HeroNode afterOfDelete =temp.getNext().getNext().getNext();
+                    beforeOfDelete.setNext(afterOfDelete);
+                    break;
+                }
+            }
+            temp = temp.getNext();
+        }
+    }
+
 }
