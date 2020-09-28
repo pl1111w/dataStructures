@@ -36,6 +36,10 @@ public class SingleLinkedList {
         parentHeroNode.updateNode(node4);
         parentHeroNode.updateNode(node5);
 
+        System.out.println("链表长度：" + parentHeroNode.heroNodeOfLength());
+        System.out.println("searchLastOfIndex：" + parentHeroNode.searchLastOfIndex(3));
+
+
         parentHeroNode.deleteNode(node4.getNo());
         System.out.println(("删除一个节点： " + parentHeroNode.toString()));
     }

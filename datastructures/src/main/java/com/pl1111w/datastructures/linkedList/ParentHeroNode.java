@@ -79,22 +79,49 @@ public class ParentHeroNode {
         while (true) {
             if (temp.getNext() == null) {
                 break;
-            }else if(temp.getNext().getNo()==no){
+            } else if (temp.getNext().getNo() == no) {
                 temp.setNext(temp.getNext().getNext());
                 break;
-            }else {
+            } else {
                 if (temp.getNext().getNext() == null) {
                     System.out.println("没找到删除节点：" + no);
                     break;
                 } else if (temp.getNext().getNext().getNo() == no) {
                     HeroNode beforeOfDelete = temp.getNext();
-                    HeroNode afterOfDelete =temp.getNext().getNext().getNext();
+                    HeroNode afterOfDelete = temp.getNext().getNext().getNext();
                     beforeOfDelete.setNext(afterOfDelete);
                     break;
                 }
             }
             temp = temp.getNext();
         }
+    }
+
+    public HeroNode searchLastOfIndex(int number) {
+        HeroNode heroNode = this.headNode;
+        int length = heroNodeOfLength() - number + 1;
+        while (true) {
+            if (heroNode.getNext() != null) {
+                length--;
+                heroNode = heroNode.getNext();
+                if (length == 0) {
+                    return heroNode;
+                }
+            } else {
+                System.out.println("searchLastOfIndex没有找到");
+                return null;
+            }
+        }
+    }
+
+    public int heroNodeOfLength() {
+        HeroNode heroNode = this.headNode;
+        int length = 0;
+        while (heroNode.getNext() != null) {
+            heroNode = heroNode.getNext();
+            length++;
+        }
+        return length;
     }
 
 }
