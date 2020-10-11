@@ -2,6 +2,11 @@ package com.pl1111w.datastructures.linkedList;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * @title: pl1111w
  * @description: 链表头节点
@@ -135,7 +140,7 @@ public class ParentHeroNode {
         while (heroNode != null) {
             next = heroNode.getNext();
             HeroNode temp = null;
-            if(reverseHeroNode.getNext()!=null){
+            if (reverseHeroNode.getNext() != null) {
                 temp = reverseHeroNode.getNext();
             }
             reverseHeroNode.setNext(heroNode);
@@ -146,4 +151,19 @@ public class ParentHeroNode {
         return headNode;
     }
 
+    public String InversePrintHeroNode(HeroNode headNode) {
+        Stack<HeroNode> stack = new Stack<>();
+        HeroNode heroNode = headNode.getNext();
+        while (heroNode != null) {
+            HeroNode next = heroNode.getNext();
+           // heroNode.setNext(null);
+            stack.push(heroNode);
+            heroNode = next;
+        }
+        List<HeroNode> list = new ArrayList<>();
+        while (stack.size()>0){
+            list.add(stack.pop());
+        }
+        return list.toString();
+    }
 }

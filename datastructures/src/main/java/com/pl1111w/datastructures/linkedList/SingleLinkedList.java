@@ -32,6 +32,7 @@ public class SingleLinkedList {
         parentHeroNode.addNodeByOrder(node4);
 
         System.out.println("顺序添加： " + parentHeroNode.toString());
+        System.out.println("逆序打印："+parentHeroNode.InversePrintHeroNode(parentHeroNode.getHeadNode()));
         System.out.println("链表翻转: "+parentHeroNode.reversetHeroNode(parentHeroNode.getHeadNode()));
         node4.setNickName("林教头");
         parentHeroNode.updateNode(node4);
