@@ -124,4 +124,26 @@ public class ParentHeroNode {
         return length;
     }
 
+    //单链表翻转
+    public HeroNode reversetHeroNode(HeroNode headNode) {
+        if (headNode.getNext() == null || headNode.getNext().getNext() == null) {
+            return headNode;
+        }
+        HeroNode heroNode = headNode.getNext();
+        HeroNode next = null;
+        HeroNode reverseHeroNode = new HeroNode(0, "", "");
+        while (heroNode != null) {
+            next = heroNode.getNext();
+            HeroNode temp = null;
+            if(reverseHeroNode.getNext()!=null){
+                temp = reverseHeroNode.getNext();
+            }
+            reverseHeroNode.setNext(heroNode);
+            reverseHeroNode.getNext().setNext(temp);
+            heroNode = next;
+        }
+        headNode.setNext(reverseHeroNode.getNext());
+        return headNode;
+    }
+
 }
