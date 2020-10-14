@@ -20,11 +20,11 @@ public class SingleLinkedList {
         HeroNode node5 = new HeroNode(5, "华容", "小李广");
 
         ParentHeroNode parentHeroNode = new ParentHeroNode();
-//        parentHeroNode.addNode(node2);
-//        parentHeroNode.addNode(node1);
-//        parentHeroNode.addNode(node3);
-//        parentHeroNode.addNode(node4);
-//        System.out.println(parentHeroNode.toString());
+        parentHeroNode.addNode(node2);
+        parentHeroNode.addNode(node1);
+        parentHeroNode.addNode(node3);
+        parentHeroNode.addNode(node4);
+        System.out.println(parentHeroNode.toString());
 
         parentHeroNode.addNodeByOrder(node2);
         parentHeroNode.addNodeByOrder(node1);
