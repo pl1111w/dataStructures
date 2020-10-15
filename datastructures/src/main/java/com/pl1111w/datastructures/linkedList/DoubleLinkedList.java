@@ -20,7 +20,11 @@ public class DoubleLinkedList {
         parentHeroNodeOfDouble.addNode(node2);
         parentHeroNodeOfDouble.addNode(node3);
         parentHeroNodeOfDouble.list();
-        parentHeroNodeOfDouble.update(node4);
+        System.out.println("==========update=============");
+        parentHeroNodeOfDouble.update(node3);
+        parentHeroNodeOfDouble.list();
+        System.out.println("==========delete=============");
+        parentHeroNodeOfDouble.delete(node5);
         parentHeroNodeOfDouble.list();
 
 

@@ -43,24 +43,51 @@ public class ParentHeroNodeOfDouble {
     public void update(HeroNodeOfDouble newHeroNode) {
         HeroNodeOfDouble updateNode = headNode.next;
         if (updateNode == null) {
-            System.out.println("链表为空");
+            System.out.println("链表为空不能更新");
         }
-        boolean flag = false; // 表示是否找到该节点
-        while (true) {
+        boolean updateTarget = false;
+        while (updateNode != null) {
             if (updateNode.no == newHeroNode.no) {
-                flag = true;
-                break;
-            }
-            if (updateNode == null) {
+                updateTarget = true;
                 break;
             }
             updateNode = updateNode.next;
         }
-        if (flag) {
+        if (updateTarget) {
             updateNode.name = newHeroNode.name;
             updateNode.nickname = newHeroNode.nickname;
         } else {
-            System.out.println("没找到！");
+            System.out.println("没找到要更新的节点!");
+        }
+    }
+
+    public void delete(HeroNodeOfDouble node) {
+
+        HeroNodeOfDouble deleteNode = headNode.next;
+        if (deleteNode == null) {
+            System.out.println("链表为空不能删除");
+        }
+        boolean target = false;
+        while (true) {
+            if (node.no == deleteNode.no) {
+                target = true;
+                break;
+            }
+            deleteNode = deleteNode.next;
+            if (deleteNode == null) {
+                break;
+            }
+        }
+        if (target) {
+            HeroNodeOfDouble temp = deleteNode;
+            if (deleteNode.next == null) {
+                deleteNode.pre.next = null;
+            } else {
+                deleteNode.pre.next = temp.next;
+                deleteNode.next.pre = temp.pre;
+            }
+        } else {
+            System.out.println("要删除的节点没找到！");
         }
     }
 }
