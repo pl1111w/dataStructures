@@ -1,56 +1,95 @@
 package com.pl1111w.datastructures.stack;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 /**
- * @title: pl1111w
- * @description: TODO
+ * @title: pl1111w-栈结构
+ * @description: 逆波兰表达式
  * @author: Kris
  * @date 2020/10/19 23:01
  */
 public class PolandNotation {
+    /**
+     * 思路分析
+     * 1、首先将输入的字符串类型的中序表达式进行逐项拆分存入List中
+     * 2、建立两个栈（操作栈，结果栈【结果栈只有压栈操作可以用List代替】）
+     * 3.1、遍历List,如果遇到数字，直接压入结果栈
+     * 3.2、如果遇到操作符号，是左括号或者操作栈为空，直接入操作栈
+     * 3.3、如果遇到右括号，弹出操作栈内所有元素直到遇到左括号为止
+     * 3.4、如果操作符低于栈顶元素的优先级，操作栈栈顶元素出栈并压入结果栈
+     * 将优先级低的操作符压入操作栈，否则直接将操作符压入操作栈
+     * 3.5、将操作栈剩余的操作符出栈并压入结果栈
+     * 4、逆波兰表达式计算规则（从左到右扫描，遇到数字压入栈，遇到操作符弹出
+     * 栈顶两个数字，计算结果并将结果压入栈【注意除法跟减法顺序运算顺序】）
+     **/
 
     public static void main(String[] args) {
-
-//        String expression = "30 4 + 5 * 6 -";
-//        int value = calculate(expression);
-//        System.out.println(value);
-
-        String expression = "1+((2+3)*4)-5";//注意表达式
+        String expression = "10+((20/5)*5)-50";//注意表达式
         List<String> infixExpressionList = toInfixExpressionList(expression);
-        List<String> suffixExpreesionList = parseSuffixExpreesionList(infixExpressionList);
-        System.out.println(suffixExpreesionList.toString());
-        int value = calculate(suffixExpreesionList);
-        System.out.println(value);
+        System.out.println("中序表达式进行逐项拆分存入List: " + infixExpressionList);
+        List<String> resultList = parseSuffixExpressionList(infixExpressionList);
+        System.out.println("逆波兰表达式:" + resultList);
+        int result = calculate(resultList);
+        System.out.println("逆波兰表达式计算结果：" + result);
+
     }
 
-    private static List<String> parseSuffixExpreesionList(List<String> infixExpressionList) {
-        Stack<String> operation = new Stack<>();
-        //Stack<String> result = new Stack<>();
-        List<String> resultList = new ArrayList<>();
-        for (String item : infixExpressionList) {
-            if (item.matches("\\d+")) {
-                resultList.add(item);
-            } else if (item.equals("(") || operation.size() == 0) {
-                operation.push(item);
-            } else if (item.equals(")")) {
-                while (!operation.peek().equals("(")) {
-                    resultList.add(operation.pop());
-                }
-                operation.pop();
+    private static int calculate(List<String> resultList) {
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 0; i < resultList.size(); i++) {
+            if (resultList.get(i).matches("\\d+")) {
+                stack.push(Integer.parseInt(resultList.get(i)));
             } else {
-                while (operation.size() != 0 && Operation.getValue(operation.peek()) >= Operation.getValue(item)) {
-                    resultList.add(operation.pop());
+                int number1 = stack.pop();
+                int number2 = stack.pop();
+                /**注意除法跟减法顺序！！！**/
+                if (resultList.get(i).equals("+")) {
+                    stack.push(number1 + number2);
+                } else if (resultList.get(i).equals("-")) {
+                    stack.push(number2 - number1);
+                } else if (resultList.get(i).equals("*")) {
+                    stack.push(number2 * number1);
+                } else if (resultList.get(i).equals("/")) {
+                    stack.push(number2 / number1);
+                } else {
+                    throw new RuntimeException("符号匹配错误！");
                 }
-                operation.push(item);
+            }
+
+        }
+        return stack.pop();
+    }
+
+    private static List<String> parseSuffixExpressionList(List<String> infixExpressionList) {
+
+        Stack<String> operationStack = new Stack<>();
+        //Stack<String> resultStack = new Stack<>();
+        List<String> resultList = new ArrayList<>();
+
+        for (String element : infixExpressionList) {
+            if (element.matches("\\d+")) {
+                resultList.add(element);
+            } else if (element.equals("(") || operationStack.size() == 0) {
+                operationStack.push(element);
+            } else if (element.equals(")")) {
+                while (!operationStack.peek().equals("(")) {
+                    resultList.add(operationStack.pop());
+                }
+                //移除左括号
+                operationStack.pop();
+            } else {
+                while (operationStack.size() != 0 && Operation.getValue(operationStack.peek()) > Operation.getValue(element)) {
+                    resultList.add(operationStack.pop());
+                }
+                operationStack.push(element);
             }
         }
-        while (operation.size()!=0){
-            resultList.add(operation.pop());
+        while (operationStack.size() != 0) {
+            resultList.add(operationStack.pop());
         }
-
         return resultList;
     }
 
@@ -58,113 +97,45 @@ public class PolandNotation {
 
         List<String> stringList = new ArrayList<>();
         int length = expression.length();
-        String str;
+        String str = "";
         int i = 0;
         do {
             char c;
             if ((c = expression.charAt(i)) < 48 || (c = expression.charAt(i)) > 57) {
-                stringList.add("" + c);
+                str = str + c;
+                stringList.add(str);
+                str = "";
                 i++;
             } else {
-                str = "";
-                while (i < expression.length() && (c = expression.charAt(i)) > 48 && (c = expression.charAt(i)) < 57) {
-                    str += c;
+                /**一定要判断字符串是否越界！！！**/
+                while (i < expression.length() && (c = expression.charAt(i)) > 47 && (expression.charAt(i)) < 57) {
+                    str = str + c;
                     i++;
                 }
                 stringList.add(str);
+                str = "";
             }
-        } while (i < expression.length());
+        } while (length > i);
         return stringList;
-    }
-    public static int calculate(List<String> ls) {
-        // 创建给栈, 只需要一个栈即可
-        Stack<String> stack = new Stack<String>();
-        // 遍历 ls
-        for (String item : ls) {
-            // 这里使用正则表达式来取出数
-            if (item.matches("\\d+")) { // 匹配的是多位数
-                // 入栈
-                stack.push(item);
-            } else {
-                // pop出两个数，并运算， 再入栈
-                int num2 = Integer.parseInt(stack.pop());
-                int num1 = Integer.parseInt(stack.pop());
-                int res = 0;
-                if (item.equals("+")) {
-                    res = num1 + num2;
-                } else if (item.equals("-")) {
-                    res = num1 - num2;
-                } else if (item.equals("*")) {
-                    res = num1 * num2;
-                } else if (item.equals("/")) {
-                    res = num1 / num2;
-                } else {
-                    throw new RuntimeException("运算符有误");
-                }
-                //把res 入栈
-                stack.push("" + res);
-            }
-
-        }
-        //最后留在stack中的数据是运算结果
-        return Integer.parseInt(stack.pop());
-    }
-    private static int calculate(String expression) {
-        String strs[] = expression.split(" ");
-        List<String> list = new ArrayList<>();
-        for (String str : strs) {
-            list.add(str);
-        }
-        Stack<String> stringStack = new Stack<>();
-        for (String element : list) {
-            if (element.matches("\\d+")) {
-                stringStack.push(element);
-            } else {
-                int num1 = Integer.parseInt(stringStack.pop());
-                int num2 = Integer.parseInt(stringStack.pop());
-                int result = 0;
-                if (element.equals("+")) {
-                    result = num2 + num1;
-                } else if (element.equals("-")) {
-                    result = num2 - num1;
-                } else if (element.equals("*")) {
-                    result = num2 * num1;
-                } else if (element.equals("/")) {
-                    result = num2 / num1;
-                } else {
-                    throw new RuntimeException("运算符有误");
-                }
-                stringStack.push("" + result);
-            }
-        }
-        return Integer.parseInt(stringStack.pop());
     }
 
 }
-class Operation {
-    private static int ADD = 1;
-    private static int SUB = 1;
-    private static int MUL = 2;
-    private static int DIV = 2;
 
-    public static int getValue(String operation) {
-        int value = 0;
-        switch (operation) {
+class Operation {
+
+    public static int getValue(String value) {
+        switch (value) {
             case "+":
-                value = ADD;
-                break;
+                return 1;
             case "-":
-                value = SUB;
-                break;
+                return 1;
             case "*":
-                value = MUL;
-                break;
+                return 2;
             case "/":
-                value = DIV;
-                break;
+                return 2;
             default:
-                System.out.println("无符号！");
+                return 0;
         }
-        return value;
+
     }
 }
