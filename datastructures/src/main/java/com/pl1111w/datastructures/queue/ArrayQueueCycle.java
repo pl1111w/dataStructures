@@ -8,6 +8,18 @@ package com.pl1111w.datastructures.queue;
  */
 public class ArrayQueueCycle {
 
+    /**思路分析
+     * 1、在添加一个元素前，首先判断队列是否已经满了
+     * 每次添加一个元素时，rear下标+1 保证队列可以循环，则
+     * rear+1必须《=maxSize，当超过maxSize则要做取余操作
+     * 当(rear+1)%=maxSize时候，队列满了（队列实际只能存放maxSize-1个元素）
+     * 2、在删除一个元素时，首先判断队列是否已经空了
+     * 判断条件为rear==front,没有空则front=(front+1)%maxSize
+     * 3、进行遍历数组时候，从front开始到rear结束，由于rear可能小于front
+     * front往后遍历个数为：(rear+maxSize-front)%maxSize
+     * 输入数组下标也应该对maxSize取余
+     * **/
+
     private int maxSize;
 
     private int front;
@@ -75,8 +87,6 @@ public class ArrayQueueCycle {
         for (int i = front; i < front + size(); i++) {
             System.out.println("【" + arr[i % maxSize] + "】");
         }
-        System.out.println(rear);
-        System.out.println(front);
     }
 
     private int size() {
