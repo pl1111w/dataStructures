@@ -24,7 +24,7 @@ public class ArrayQueueCycle {
     }
 
     public static void main(String[] args) {
-        ArrayQueueCycle queueCycle = new ArrayQueueCycle(5);
+        ArrayQueueCycle queueCycle = new ArrayQueueCycle(6);
         queueCycle.add(1);
         queueCycle.add(2);
         queueCycle.add(3);
@@ -33,41 +33,38 @@ public class ArrayQueueCycle {
         queueCycle.remove();
         queueCycle.remove();
         queueCycle.remove();
-        queueCycle.add(4);
-        queueCycle.add(5);
         queueCycle.remove();
+        queueCycle.add(6);
+        queueCycle.add(7);
+        queueCycle.add(8);
+        queueCycle.add(9);
         queueCycle.showQueue();
     }
 
     private void add(int i) {
 
         if (isFull()) {
-            System.out.println("队列已满");
+            throw new RuntimeException("队列已满");
         } else {
             System.out.println("add:" + i);
             arr[rear % maxSize] = i;
-            rear++;
+            rear = (rear + 1) % maxSize;
         }
     }
 
     private void remove() {
 
         if (isEmpty()) {
-            System.out.println("队列空");
+            throw new RuntimeException("队列空");
         } else {
-            System.out.println("remove:" + arr[front]);
+            System.out.println("remove:" + arr[front % maxSize]);
             front = (front + 1) % maxSize;
         }
     }
 
 
     private boolean isFull() {
-        if (front == 0) {
-            return false;
-        } else {
-            return rear % maxSize == front;
-        }
-
+        return (rear + 1) % maxSize == front;
     }
 
     private boolean isEmpty() {
@@ -76,14 +73,14 @@ public class ArrayQueueCycle {
 
     public void showQueue() {
         for (int i = front; i < front + size(); i++) {
-            System.out.println(arr[i % maxSize]);
+            System.out.println("【" + arr[i % maxSize] + "】");
         }
+        System.out.println(rear);
+        System.out.println(front);
     }
 
     private int size() {
-        if (front < rear) {
-            return rear - front;
-        }
+
         return (rear + maxSize - front) % maxSize;
     }
 }
