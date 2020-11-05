@@ -39,7 +39,8 @@ public class InsertSort {
                     break;//跳出循环，开始插入下一个数
                 }
             }
-            arr[j] = temp;
+            arr[j + 1] = temp;
+
         }
     }
 }
