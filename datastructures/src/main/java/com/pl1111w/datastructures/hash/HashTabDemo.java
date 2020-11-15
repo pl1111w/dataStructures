@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * @title: pl1111w
- * @description: TODO
+ * @description: 模拟哈希表
  * @author: Kris
  * @date 2020/11/11 22:50
  */
