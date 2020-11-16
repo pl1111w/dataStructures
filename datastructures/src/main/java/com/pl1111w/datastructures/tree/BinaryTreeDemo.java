@@ -29,7 +29,9 @@ public class BinaryTreeDemo {
 //        binaryTree.afterOrder();
 //        binaryTree.middleSearch(4);
 //        binaryTree.preSearch(4);
-        binaryTree.afterSearch(4);
+
+        binaryTree.removeNode(5);
+        binaryTree.preOrder();
 
     }
 
@@ -178,6 +180,27 @@ class HeroNode {
         }
         return resNode;
     }
+
+    public boolean removeNode(int no) {
+        boolean target = false;
+        if (this.left != null) {
+            if (this.left.id == no) {
+                this.left = null;
+                return true;
+            } else {
+                target = this.left.removeNode(no);
+            }
+        }
+        if (this.right != null) {
+            if (this.right.id == no) {
+                this.right = null;
+                return true;
+            } else {
+                target = this.right.removeNode(no);
+            }
+        }
+        return target;
+    }
 }
 
 class BinaryTree {
@@ -246,5 +269,19 @@ class BinaryTree {
             System.out.println("afterSearch not fund id=" + i);
         }
         return heroNode;
+    }
+
+    public void removeNode(int i) {
+        if (this.root != null) {
+            if (this.root.getId() == i) {
+                this.root = null;
+            } else {
+                boolean result = this.root.removeNode(i);
+                System.out.println("removed:" + result);
+            }
+        } else {
+            System.out.println("remove failed");
+        }
+
     }
 }
