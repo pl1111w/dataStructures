@@ -24,9 +24,13 @@ public class BinaryTreeDemo {
         node3.setLeft(node4);
         node3.setRight(node5);
         binaryTree.setRoot(root);
-        //binaryTree.preOrder();
-       // binaryTree.midOrder();
-        binaryTree.afterOrder();
+//        binaryTree.preOrder();
+//        binaryTree.midOrder();
+//        binaryTree.afterOrder();
+//        binaryTree.middleSearch(4);
+//        binaryTree.preSearch(4);
+        binaryTree.afterSearch(4);
+
     }
 
 
@@ -98,12 +102,12 @@ class HeroNode {
     }
 
     public void midOrder() {
-        //递归向左子树前序遍历
+        //递归向左子树中序遍历
         if (this.left != null) {
             this.left.midOrder();
         }
         System.out.println(this); //先输出父结点
-        //递归向右子树前序遍历
+        //递归向右子树中序遍历
         if (this.right != null) {
             this.right.midOrder();
         }
@@ -118,6 +122,61 @@ class HeroNode {
             this.right.afterOrder();
         }
         System.out.println(this);
+    }
+
+    public HeroNode middleSearch(int no) {
+
+        HeroNode resNode = null;
+        if (this.left != null) {
+            resNode = this.left.middleSearch(no);
+        }
+        if (resNode != null) {
+            return resNode;
+        }
+        if (this.id == no) {
+            return this;
+        }
+        if (this.right != null) {
+            resNode = this.right.middleSearch(no);
+        }
+        return resNode;
+    }
+
+    public HeroNode preSearch(int no) {
+        if (this.id == no) {
+            return this;
+        }
+        HeroNode heroNode = null;
+        //左递归
+        if (this.left != null) {
+            heroNode = this.left.preSearch(no);
+        }
+        //找到了
+        if (heroNode != null) {
+            return heroNode;
+        }
+        //右递归
+        if (this.right != null) {
+            heroNode = this.right.preSearch(no);
+        }
+        return heroNode;
+    }
+
+    public HeroNode afterSearch(int no) {
+        HeroNode resNode = null;
+        if (this.left != null) {
+            resNode = this.left.afterSearch(no);
+        }
+        if (resNode != null) {
+            return resNode;
+        }
+        if (this.right != null) {
+            resNode = this.right.afterSearch(no);
+        }
+        if (this.id == no) {
+            return this;
+        }
+        return resNode;
     }
 }
 
@@ -138,7 +197,7 @@ class BinaryTree {
         }
     }
 
-    //前序遍历
+    //中序遍历
     public void midOrder() {
         if (this.root != null) {
             this.root.midOrder();
@@ -147,11 +206,45 @@ class BinaryTree {
         }
     }
 
+    //后序遍历
     public void afterOrder() {
         if (this.root != null) {
             this.root.afterOrder();
         } else {
             System.out.println("二叉树为空，无法遍历");
         }
+    }
+
+    public HeroNode middleSearch(int i) {
+        HeroNode heroNode = null;
+        if (this.root != null) {
+            heroNode = this.root.middleSearch(i);
+            System.out.println(heroNode.toString());
+        } else {
+            System.out.println("middleSearch not fund id=" + i);
+        }
+        return heroNode;
+    }
+
+    public HeroNode preSearch(int i) {
+        HeroNode heroNode = null;
+        if (this.root != null) {
+            heroNode = this.root.preSearch(i);
+            System.out.println("preSearch:" + heroNode.toString());
+        } else {
+            System.out.println("preSearch not fund id=" + i);
+        }
+        return heroNode;
+    }
+
+    public HeroNode afterSearch(int i) {
+        HeroNode heroNode = null;
+        if (this.root != null) {
+            heroNode = this.root.afterSearch(i);
+            System.out.println("afterSearch:" + heroNode.toString());
+        } else {
+            System.out.println("afterSearch not fund id=" + i);
+        }
+        return heroNode;
     }
 }
