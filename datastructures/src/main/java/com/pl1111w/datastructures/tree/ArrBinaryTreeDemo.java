@@ -12,7 +12,8 @@ public class ArrBinaryTreeDemo {
         int[] arr = {1, 2, 3, 4, 5, 6, 7};
         //创建一个 ArrBinaryTree
         ArrBinaryTree arrBinaryTree = new ArrBinaryTree(arr);
-        arrBinaryTree.preOrder(); // 1,2,4,5,3,6,7
+        // arrBinaryTree.preOrder(); // 1,2,4,5,3,6,7
+        arrBinaryTree.midOrder();//4,2,5,1,6,3,7
     }
 }
 
@@ -25,6 +26,10 @@ class ArrBinaryTree {
 
     public void preOrder() {
         this.preOrder(0);
+    }
+
+    public void midOrder() {
+        this.midOrder(0);
     }
 
     private void preOrder(int i) {
@@ -44,4 +49,25 @@ class ArrBinaryTree {
             preOrder(i * 2 + 2);
         }
     }
+
+    private void midOrder(int i) {
+        if (arr == null) {
+            System.out.println("数组为空，不能按照二叉树的前序遍历");
+            return;
+        }
+        if (arr.length == 0) {
+            System.out.println("数组为空，不能按照二叉树的前序遍历");
+            return;
+        }
+        if (i * 2 + 1 < arr.length) {
+            midOrder(i * 2 + 1);
+        }
+        System.out.println(arr[i]);
+        if (i * 2 + 2 < arr.length) {
+            midOrder(i * 2 + 2);
+        }
+
+    }
+
+
 }
