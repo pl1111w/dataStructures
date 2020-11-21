@@ -31,11 +31,19 @@ public class ThreadedBinaryTreeDemo {
         ThreadedBinaryTree threadedBinaryTree = new ThreadedBinaryTree();
         threadedBinaryTree.setRoot(root);
         threadedBinaryTree.midThreadedNodes();
-
         ThreadHeroNode leftNode = node5.getLeft();
         ThreadHeroNode rightNode = node5.getRight();
         System.out.println("10号结点的前驱结点是 =" + leftNode); //3
         System.out.println("10号结点的后继结点是=" + rightNode); //1
+
+        System.out.println("==========前序线索化开始=============");
+        System.out.println("｛1，3，8，10，6，14｝");
+        threadedBinaryTree.preThreadedNodes();
+        ThreadHeroNode preLeftNode = node5.getLeft();
+        ThreadHeroNode preRightNode = node5.getRight();
+        System.out.println("10号结点的前驱结点是 =" + preLeftNode); //8
+        System.out.println("10号结点的后继结点是=" + preRightNode); //6
+
     }
 }
 
@@ -110,5 +118,42 @@ class ThreadedBinaryTree {
         }
         pre = node;
         midThreadedNodes(node.getRight());
+    }
+
+    public void preThreadedNodes() {
+        this.preThreadedNodes(root);
+    }
+
+    private void preThreadedNodes(ThreadHeroNode node) {
+        //如果node==null, 不能线索化
+        if (node == null) {
+            return;
+        }
+        //左指针为空,将左指针指向前驱节点
+        //8结点的.left = 上一个节点 , 8结点的.leftType = 1
+        if (node.getLeft() == null) {
+            //让当前结点的左指针指向前驱结点
+            node.setLeft(pre);
+            //修改当前结点的左指针的类型,指向前驱结点
+            node.setLeftType(1);
+        }
+        //处理后继结点,是下一次进行处理，有点不好理解
+        if (pre != null && pre.getLeftType() == 1) {
+            //让前驱结点的右指针指向当前结点
+            pre.setRight(node);
+            //修改前驱结点的右指针类型
+            pre.setRightType(1);
+        }
+        //!!! 每处理一个结点后，让当前结点是下一个结点的前驱结点
+        pre = node;
+        //(一)先线索化左子树
+        if (node.getLeftType() != 1) {
+            preThreadedNodes(node.getLeft());
+        }
+        //(三)再线索化右子树
+        if (node.getRightType() != 1) {
+            preThreadedNodes(node.getRight());
+        }
+
     }
 }
