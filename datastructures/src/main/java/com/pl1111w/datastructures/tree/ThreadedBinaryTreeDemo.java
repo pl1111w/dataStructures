@@ -39,10 +39,10 @@ public class ThreadedBinaryTreeDemo {
         System.out.println("==========前序线索化开始=============");
         System.out.println("｛1，3，8，10，6，14｝");
         threadedBinaryTree.preThreadedNodes();
-        ThreadHeroNode preLeftNode = node5.getLeft();
-        ThreadHeroNode preRightNode = node5.getRight();
-        System.out.println("10号结点的前驱结点是 =" + preLeftNode); //8
-        System.out.println("10号结点的后继结点是=" + preRightNode); //6
+        ThreadHeroNode preLeftNode = node4.getLeft();
+        ThreadHeroNode preRightNode = node4.getRight();
+        System.out.println("8号结点的前驱结点是 =" + preLeftNode); //3
+        System.out.println("8号结点的后继结点是=" + preRightNode); //10
 
     }
 }
