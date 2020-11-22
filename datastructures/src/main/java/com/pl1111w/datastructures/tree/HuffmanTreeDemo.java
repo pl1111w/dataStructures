@@ -20,9 +20,9 @@ public class HuffmanTreeDemo {
     }
 
     public static void preOrder(Node root) {
-        if(root != null) {
+        if (root != null) {
             root.preOrder();
-        }else{
+        } else {
             System.out.println("是空树，不能遍历~~");
         }
     }
@@ -95,10 +95,10 @@ class Node implements Comparable<Node> {
 
     public void preOrder() {
         System.out.println(this);
-        if(this.left != null) {
+        if (this.left != null) {
             this.left.preOrder();
         }
-        if(this.right != null) {
+        if (this.right != null) {
             this.right.preOrder();
         }
     }
