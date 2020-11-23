@@ -12,12 +12,12 @@ public class HeapSort {
 
     /***
      * 思路分析：
-     * 1、首先遍历所有【arr.length/2-1】父节点，
+     * 1、首先遍历所有{i=[0->arr.length/2-1]}个父节点，
      * 与其子节点【i*2+1 || i* 2 +2】做比较，
      * 如果子节点【需要先判断左右子节点大小，取大值】
      * 值大于父节点，子节点与父节点交换位置
      * 2、将根节点调整到数组队尾【队尾最大值】
-     * 3、剔除队尾元素重复步骤1，2；
+     * 3、剔除队尾元素,遍历剩余节点，对根节点进行堆调整，即重复步骤1，2；
      * */
     public static void main(String[] args) {
         int arr[] = {10, 2, 3, 6, 8, 7, 5, 4, 1, 9};
@@ -43,7 +43,9 @@ public class HeapSort {
     }
 
     private static void adjustHeap(int i, int[] arr, int length) {
-        int temp = arr[i];
+        int temp = arr[i];//拿到父元素
+
+        //找到子元素
         for (int j = i * 2 + 1; j < length; j = j * 2 + 1) {
             if (j + 1 < length && arr[j + 1] > arr[j]) {
                 j++;
