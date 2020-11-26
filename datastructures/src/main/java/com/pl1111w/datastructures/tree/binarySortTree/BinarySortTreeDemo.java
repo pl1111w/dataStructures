@@ -19,10 +19,14 @@ public class BinarySortTreeDemo {
         //中序遍历二叉排序树
         System.out.println("中序遍历二叉排序树~");
         binarySortTree.infixOrder(); // 1, 2, 3, 5, 7, 9, 10, 12
-        binarySortTree.delNode(1);
         binarySortTree.delNode(2);
+        binarySortTree.delNode(3);
         binarySortTree.delNode(5);
+        binarySortTree.delNode(12);
+        binarySortTree.delNode(9);
         binarySortTree.delNode(10);
+        binarySortTree.delNode(7);
+        System.out.println("root=" + binarySortTree.getRoot());
         System.out.println("删除后，中序遍历二叉排序树~");
         binarySortTree.infixOrder();
     }
@@ -88,6 +92,7 @@ class BinarySortTree {
                     parent.right = null;
                 }
             } else if (target.right != null && target.left != null) {
+                //删除的节点左右子节点都不为空
                 if (parent.left != null && parent.left.value == value) {
                     Node node = target.right;
                     while (node.left != null) {
@@ -96,6 +101,7 @@ class BinarySortTree {
                     node.left = parent.left.left;
                     parent.left = node;
                 } else if (parent.right != null && parent.right.value == value) {
+                    //删除的节点只有一个子节点
                     if (parent.right != null && parent.right.value == value) {
                         Node node = target.left;
                         while (node.right != null) {
@@ -106,17 +112,39 @@ class BinarySortTree {
                     }
                 }
             } else {
-                if (target.left != null && parent.left.value == value) {
-                    parent.left = target.left;
-                } else if (target.left != null && parent.right.value == value) {
-                    parent.right = target.left;
-                } else if (target.right != null && parent.left.value == value) {
-                    parent.left = target.right;
-                } else if (target.right != null && parent.right.value == value) {
-                    parent.right = target.right;
+                if (parent == null) {
+                    root = target;
+                } else {
+                    if (target.left != null) {
+                        if (parent != null) {
+                            //如果 targetNode 是 parent 的左子结点
+                            if (parent.left.value == value) {
+                                parent.left = target.left;
+                            } else { //  targetNode 是 parent 的右子结点
+                                parent.right = target.left;
+                            }
+                        } else {
+                            root = target.left;
+                        }
+                    } else { //如果要删除的结点有右子结点
+                        if (parent != null) {
+                            //如果 targetNode 是 parent 的左子结点
+                            if (parent.left.value == value) {
+                                parent.left = target.right;
+                            } else { //如果 targetNode 是 parent 的右子结点
+                                parent.right = target.right;
+                            }
+                        } else {
+                            root = target.right;
+                        }
+                    }
                 }
             }
         }
+    }
+
+    public Node getRoot() {
+        return root;
     }
 }
 
@@ -194,7 +222,7 @@ class Node {
                 || this.right != null && this.right.value == value) {
             return this;
         }
-        if(value < this.value && this.left != null) {
+        if (value < this.value && this.left != null) {
             return this.left.parentNode(value); //向左子树递归查找
         } else if (value >= this.value && this.right != null) {
             return this.right.parentNode(value); //向右子树递归查找
