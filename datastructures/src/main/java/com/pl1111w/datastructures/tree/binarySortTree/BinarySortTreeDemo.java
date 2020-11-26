@@ -22,7 +22,7 @@ public class BinarySortTreeDemo {
         binarySortTree.delNode(2);
         binarySortTree.delNode(3);
         binarySortTree.delNode(5);
-        binarySortTree.delNode(12);
+        binarySortTree.delNode(1);
         binarySortTree.delNode(9);
         binarySortTree.delNode(10);
         binarySortTree.delNode(7);
@@ -65,82 +65,81 @@ class BinarySortTree {
         if (root == null) {
             return null;
         } else {
-            return root.parentNode(value);
+            return root.searchParent(value);
         }
     }
 
     public void delNode(int value) {
-        if (root == null) {
+        if(root == null) {
             return;
-        } else {
+        }else {
+            //1.需求先去找到要删除的结点  targetNode
             Node target = searchNode(value);
-            if (target == null) {
+            //如果没有找到要删除的结点
+            if(target == null) {
                 return;
             }
-            //二叉树只有一个节点
-            if (root.right == null && root.left == null) {
+            //如果我们发现当前这颗二叉排序树只有一个结点
+            if(root.left == null && root.right == null) {
                 root = null;
                 return;
             }
+
+            //去找到targetNode的父结点
             Node parent = parentNode(value);
 
             //删除的是子节点
             if (target.left == null && target.right == null) {
-                if (parent.left != null && parent.left.value == value) {
+                //判断targetNode 是父结点的左子结点，还是右子结点
+                if (parent.left != null && parent.left.value == value) { //是左子结点
                     parent.left = null;
-                } else if (parent.right != null && parent.right.value == value) {
+                } else if (parent.right != null && parent.right.value == value) {//是由子结点
                     parent.right = null;
                 }
-            } else if (target.right != null && target.left != null) {
-                //删除的节点左右子节点都不为空
-                if (parent.left != null && parent.left.value == value) {
-                    Node node = target.right;
-                    while (node.left != null) {
-                        node = node.left;
+            } else if (target.left != null && target.right != null) { //删除有两颗子树的节点
+                int minVal = delRightTreeMin(target.right);
+                target.value = minVal;
+            } else { // 删除只有一颗子树的结点
+                //如果要删除的结点有左子结点
+                if (target.left != null) {
+                    if (parent != null) {
+                        //如果 targetNode 是 parent 的左子结点
+                        if (parent.left.value == value) {
+                            parent.left = target.left;
+                        } else { //  targetNode 是 parent 的右子结点
+                            parent.right = target.left;
+                        }
+                    } else {
+                        root = target.left;
                     }
-                    node.left = parent.left.left;
-                    parent.left = node;
-                } else if (parent.right != null && parent.right.value == value) {
-                    //删除的节点只有一个子节点
-                    if (parent.right != null && parent.right.value == value) {
-                        Node node = target.left;
-                        while (node.right != null) {
-                            node = node.right;
+                } else { //如果要删除的结点有右子结点
+                    if (parent != null) {
+                        //如果 targetNode 是 parent 的左子结点
+                        if (parent.left!=null && parent.left.value == value) {
+                            parent.left = target.right;
+                        } else { //如果 targetNode 是 parent 的右子结点
+                            parent.right = target.right;
                         }
-                        node.right = parent.right.right;
-                        parent.right = node;
-                    }
-                }
-            } else {
-                if (parent == null) {
-                    root = target;
-                } else {
-                    if (target.left != null) {
-                        if (parent != null) {
-                            //如果 targetNode 是 parent 的左子结点
-                            if (parent.left.value == value) {
-                                parent.left = target.left;
-                            } else { //  targetNode 是 parent 的右子结点
-                                parent.right = target.left;
-                            }
-                        } else {
-                            root = target.left;
-                        }
-                    } else { //如果要删除的结点有右子结点
-                        if (parent != null) {
-                            //如果 targetNode 是 parent 的左子结点
-                            if (parent.left.value == value) {
-                                parent.left = target.right;
-                            } else { //如果 targetNode 是 parent 的右子结点
-                                parent.right = target.right;
-                            }
-                        } else {
-                            root = target.right;
-                        }
+                    } else {
+                        root = target.right;
                     }
                 }
+
             }
         }
+
+    }
+
+    public int delRightTreeMin(Node node) {
+        Node target = node;
+        //循环的查找左子节点，就会找到最小值
+        while (target.left != null) {
+            target = target.left;
+        }
+        //这时 target就指向了最小结点
+        //删除最小结点
+        delNode(target.value);
+        return target.value;
     }
 
     public Node getRoot() {
@@ -199,36 +198,38 @@ class Node {
 
     public Node searchNode(int value) {
 
-        if (this.value == value) {
+        if(value == this.value) { //找到就是该结点
             return this;
-        } else if (this.value < value) {
-            if (this.right != null) {
-                return this.right.searchNode(value);
-            } else {
+        } else if(value < this.value) {//如果查找的值小于当前结点，向左子树递归查找
+            //如果左子结点为空
+            if(this.left  == null) {
                 return null;
             }
-        } else {
-            if (this.left != null) {
-                return this.left.searchNode(value);
-            } else {
+            return this.left.searchNode(value);
+        } else { //如果查找的值不小于当前结点，向右子树递归查找
+            if(this.right == null) {
                 return null;
             }
+            return this.right.searchNode(value);
         }
     }
 
-    public Node parentNode(int value) {
-
-        if ((this.left != null && this.left.value == value)
-                || this.right != null && this.right.value == value) {
+    public Node searchParent(int value) {
+        //如果当前结点就是要删除的结点的父结点，就返回
+        if((this.left != null && this.left.value == value) ||
+                (this.right != null && this.right.value == value)) {
             return this;
-        }
-        if (value < this.value && this.left != null) {
-            return this.left.parentNode(value); //向左子树递归查找
-        } else if (value >= this.value && this.right != null) {
-            return this.right.parentNode(value); //向右子树递归查找
         } else {
-            return null; // 没有找到父结点
+            //如果查找的值小于当前结点的值, 并且当前结点的左子结点不为空
+            if(value < this.value && this.left != null) {
+                return this.left.searchParent(value); //向左子树递归查找
+            } else if (value >= this.value && this.right != null) {
+                return this.right.searchParent(value); //向右子树递归查找
+            } else {
+                return null; // 没有找到父结点
+            }
         }
+
     }
 
 }
