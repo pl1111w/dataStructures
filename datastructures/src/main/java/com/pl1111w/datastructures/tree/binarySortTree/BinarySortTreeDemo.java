@@ -19,8 +19,12 @@ public class BinarySortTreeDemo {
         //中序遍历二叉排序树
         System.out.println("中序遍历二叉排序树~");
         binarySortTree.infixOrder(); // 1, 2, 3, 5, 7, 9, 10, 12
-
-        binarySortTree.delNode(3);
+        binarySortTree.delNode(1);
+        binarySortTree.delNode(2);
+        binarySortTree.delNode(5);
+        binarySortTree.delNode(10);
+        System.out.println("删除后，中序遍历二叉排序树~");
+        binarySortTree.infixOrder();
     }
 }
 
@@ -46,7 +50,7 @@ class BinarySortTree {
     }
 
     public Node searchNode(int value) {
-        if (root != null) {
+        if (root == null) {
             return null;
         } else {
             return root.searchNode(value);
@@ -62,11 +66,56 @@ class BinarySortTree {
     }
 
     public void delNode(int value) {
-        if(root==null){
+        if (root == null) {
             return;
-        }
-        else {
-            root.delNode(value);
+        } else {
+            Node target = searchNode(value);
+            if (target == null) {
+                return;
+            }
+            //二叉树只有一个节点
+            if (root.right == null && root.left == null) {
+                root = null;
+                return;
+            }
+            Node parent = parentNode(value);
+
+            //删除的是子节点
+            if (target.left == null && target.right == null) {
+                if (parent.left != null && parent.left.value == value) {
+                    parent.left = null;
+                } else if (parent.right != null && parent.right.value == value) {
+                    parent.right = null;
+                }
+            } else if (target.right != null && target.left != null) {
+                if (parent.left != null && parent.left.value == value) {
+                    Node node = target.right;
+                    while (node.left != null) {
+                        node = node.left;
+                    }
+                    node.left = parent.left.left;
+                    parent.left = node;
+                } else if (parent.right != null && parent.right.value == value) {
+                    if (parent.right != null && parent.right.value == value) {
+                        Node node = target.left;
+                        while (node.right != null) {
+                            node = node.right;
+                        }
+                        node.right = parent.right.right;
+                        parent.right = node;
+                    }
+                }
+            } else {
+                if (target.left != null && parent.left.value == value) {
+                    parent.left = target.left;
+                } else if (target.left != null && parent.right.value == value) {
+                    parent.right = target.left;
+                } else if (target.right != null && parent.left.value == value) {
+                    parent.left = target.right;
+                } else if (target.right != null && parent.right.value == value) {
+                    parent.right = target.right;
+                }
+            }
         }
     }
 }
@@ -145,20 +194,13 @@ class Node {
                 || this.right != null && this.right.value == value) {
             return this;
         }
-        if (this.left != null) {
-            return this.left.parentNode(value);
-        } else if (this.right != null) {
-            return this.right.parentNode(value);
+        if(value < this.value && this.left != null) {
+            return this.left.parentNode(value); //向左子树递归查找
+        } else if (value >= this.value && this.right != null) {
+            return this.right.parentNode(value); //向右子树递归查找
+        } else {
+            return null; // 没有找到父结点
         }
-        return null;
     }
 
-    public void delNode(int value) {
-        Node target = this.searchNode(value);
-        if(target==null){
-            return;
-        }else {
-            Node parent = this.parentNode(value);
-        }
-    }
 }
