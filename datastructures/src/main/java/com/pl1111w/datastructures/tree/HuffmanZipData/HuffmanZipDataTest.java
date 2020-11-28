@@ -1,4 +1,4 @@
-package com.pl1111w.datastructures.tree.HuuffmanZipData;
+package com.pl1111w.datastructures.tree.HuffmanZipData;
 
 import java.io.*;
 import java.util.*;
@@ -13,8 +13,8 @@ public class HuffmanZipDataTest {
 //        //解码
 //        byte[] newBytes = decode(huffmanCodes, result);
 //        System.out.println(new String(newBytes));
-        String src="C:/Users/xiaobo wei/Pictures/test/centos.png";
-        String dst="C:/Users/xiaobo wei/Pictures/centos.zip";
+        String src="Pictures/test/beauty.png";
+        String dst="/Pictures/beauty.zip";
 
 //        try {
 //            zipFile(src,dst);

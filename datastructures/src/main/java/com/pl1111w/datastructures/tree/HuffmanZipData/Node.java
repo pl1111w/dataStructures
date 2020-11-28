@@ -1,4 +1,4 @@
-package com.pl1111w.datastructures.tree.HuuffmanZipData;
+package com.pl1111w.datastructures.tree.HuffmanZipData;
 
 import lombok.Data;
 
