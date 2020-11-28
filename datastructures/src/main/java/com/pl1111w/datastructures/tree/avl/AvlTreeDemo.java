@@ -21,7 +21,6 @@ public class AvlTreeDemo {
         System.out.println("二叉树高度为:" + avlTree.getRoot().height());
         System.out.println("二叉树左子树高度为:" + avlTree.getRoot().leftHeight());
         System.out.println("二叉树右子树高度为:" + avlTree.getRoot().rightHeight());
-
     }
 }
 
@@ -106,6 +105,18 @@ class Node {
                 this.right = node;
             }
         }
+        if (rightHeight() - leftHeight() > 1) {
+            leftRotate();
+        }
+    }
+
+    private void leftRotate() {
+        Node newNode = new Node(this.value);
+        newNode.left = left;
+        newNode.right = right.left;
+        this.value = right.value;
+        this.right = right.right;
+        this.left = newNode;
     }
 
     public void infixOrder() {
