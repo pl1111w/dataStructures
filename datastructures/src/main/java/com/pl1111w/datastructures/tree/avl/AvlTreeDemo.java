@@ -10,13 +10,17 @@ public class AvlTreeDemo {
 
     public static void main(String[] args) {
 
-        int[] arr = {4, 3, 6, 5, 7, 8};
+//        int[] arr = {4, 3, 6, 5, 7, 8};
+//        int[] arr = {10, 12, 8, 9, 7, 6};
+//        int[] arr = { 10, 11, 7, 6, 8, 9 };
+        int[] arr = {9, 8, 10, 11, 7, 12, 6};
         AvlTree avlTree = new AvlTree();
         //循环的添加结点到二叉排序树
         for (int i = 0; i < arr.length; i++) {
             avlTree.add(new Node(arr[i]));
         }
         System.out.println("中序遍历二叉树");
+        System.out.println(avlTree.getRoot());
         avlTree.infixOrder();
         System.out.println("二叉树高度为:" + avlTree.getRoot().height());
         System.out.println("二叉树左子树高度为:" + avlTree.getRoot().leftHeight());
@@ -105,9 +109,43 @@ class Node {
                 this.right = node;
             }
         }
+        //当添加完一个结点后，如果: (右子树的高度-左子树的高度) > 1 , 左旋转
         if (rightHeight() - leftHeight() > 1) {
-            leftRotate();
+            //如果它的右子树的左子树的高度大于它的右子树的右子树的高度
+            if (right != null && right.leftHeight() > right.rightHeight()) {
+                //先对右子结点进行右旋转
+                right.rightRotate();
+                //然后在对当前结点进行左旋转
+                leftRotate(); //左旋转..
+            } else {
+                //直接进行左旋转即可
+                leftRotate();
+            }
+            // return ; //必须要!!!
         }
+
+        //当添加完一个结点后，如果 (左子树的高度 - 右子树的高度) > 1, 右旋转
+        else if (leftHeight() - rightHeight() > 1) {
+            //如果它的左子树的右子树高度大于它的左子树的高度
+            if (left != null && left.rightHeight() > left.leftHeight()) {
+                //先对当前结点的左结点(左子树)->左旋转
+                left.leftRotate();
+                //再对当前结点进行右旋转
+                rightRotate();
+            } else {
+                //直接进行右旋转即可
+                rightRotate();
+            }
+        }
+    }
+
+    private void rightRotate() {
+        Node newNode = new Node(this.value);
+        newNode.right = right;
+        newNode.left = this.left.right;
+        this.value = left.value;
+        this.left = this.left.left;
+        this.right = newNode;
     }
 
     private void leftRotate() {
@@ -130,6 +168,7 @@ class Node {
     }
 
     public int height() {
+        System.out.println("value:"+this.value);
         return Math.max(this.left == null ? 0 : this.left.height(),
                 this.right == null ? 0 : this.right.height()) + 1;
     }
