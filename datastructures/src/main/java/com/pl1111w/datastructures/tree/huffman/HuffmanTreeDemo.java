@@ -1,4 +1,4 @@
-package com.pl1111w.datastructures.tree;
+package com.pl1111w.datastructures.tree.huffman;
 
 import java.util.ArrayList;
 import java.util.Collections;

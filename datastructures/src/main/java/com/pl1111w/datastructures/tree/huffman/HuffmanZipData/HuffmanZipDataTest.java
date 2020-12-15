@@ -1,4 +1,4 @@
-package com.pl1111w.datastructures.tree.HuffmanZipData;
+package com.pl1111w.datastructures.tree.huffman.HuffmanZipData;
 
 import java.io.*;
 import java.util.*;
