@@ -1,5 +1,9 @@
 package com.pl1111w.datastructures.tree;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+
 /**
  * @title: pl1111w
  * @description: 二叉树遍历与搜索
@@ -24,14 +28,15 @@ public class BinaryTreeDemo {
         node3.setLeft(node4);
         node3.setRight(node5);
         binaryTree.setRoot(root);
-//        binaryTree.preOrder();
+        binaryTree.preOrder();
 //        binaryTree.midOrder();
 //        binaryTree.afterOrder();
 //        binaryTree.middleSearch(4);
-//        binaryTree.preSearch(4);
-
-        binaryTree.removeNode(5);
-        binaryTree.preOrder();
+        binaryTree.preSearch(4);
+        System.out.println("++++++++++++");
+        binaryTree.preOrderNoRecursion();
+//        binaryTree.removeNode(5);
+//        binaryTree.preOrder();
 
     }
 
@@ -100,6 +105,27 @@ class HeroNode {
         //递归向右子树前序遍历
         if (this.right != null) {
             this.right.preOrder();
+        }
+    }
+
+    public void preOrderNoRecursion() {
+        Stack<HeroNode> stack = new Stack<>();
+        stack.push(this);
+        List<HeroNode> nodeList = new LinkedList<>();
+        while (!stack.isEmpty()) {
+            HeroNode node = stack.pop();
+
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+
+            nodeList.add(node);
+        }
+        for (HeroNode node : nodeList) {
+            System.out.println(node);
         }
     }
 
@@ -220,6 +246,15 @@ class BinaryTree {
         }
     }
 
+    //前序遍历
+    public void preOrderNoRecursion() {
+        if (this.root != null) {
+            this.root.preOrderNoRecursion();
+        } else {
+            System.out.println("二叉树为空，无法遍历");
+        }
+    }
+
     //中序遍历
     public void midOrder() {
         if (this.root != null) {
@@ -284,4 +319,6 @@ class BinaryTree {
         }
 
     }
+
+
 }
