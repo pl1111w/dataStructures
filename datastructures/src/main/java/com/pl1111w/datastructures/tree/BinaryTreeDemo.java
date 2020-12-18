@@ -1,8 +1,6 @@
 package com.pl1111w.datastructures.tree;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * @title: pl1111w
@@ -33,8 +31,11 @@ public class BinaryTreeDemo {
 //        binaryTree.afterOrder();
 //        binaryTree.middleSearch(4);
         binaryTree.preSearch(4);
-        System.out.println("++++++++++++");
+        System.out.println("前序遍历非递归");
         binaryTree.preOrderNoRecursion();
+        System.out.println("层级遍历....");
+        binaryTree.levelOrder();
+
 //        binaryTree.removeNode(5);
 //        binaryTree.preOrder();
 
@@ -227,6 +228,27 @@ class HeroNode {
         }
         return target;
     }
+
+    public void levelOrder() {
+        HeroNode cur = this;
+        Queue<HeroNode> queue = new ArrayDeque<>();
+        ArrayList<HeroNode> heroNodes = new ArrayList<>();
+        queue.add(cur);
+        while (!queue.isEmpty()) {
+            HeroNode node = queue.poll();
+            heroNodes.add(node);
+            if (node.left != null) {
+                queue.add(node.left);
+            }
+            if (node.right != null) {
+                queue.add(node.right);
+            }
+        }
+        for (HeroNode heroNode : heroNodes) {
+            System.out.println(heroNode);
+        }
+
+    }
 }
 
 class BinaryTree {
@@ -272,6 +294,16 @@ class BinaryTree {
             System.out.println("二叉树为空，无法遍历");
         }
     }
+
+    //层级遍历
+    public void levelOrder() {
+        if (this.root != null) {
+            this.root.levelOrder();
+        } else {
+            System.out.println("树为空");
+        }
+    }
+
 
     public HeroNode middleSearch(int i) {
         HeroNode heroNode = null;
