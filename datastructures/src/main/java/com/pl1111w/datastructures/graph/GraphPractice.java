@@ -2,10 +2,11 @@ package com.pl1111w.datastructures.graph;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 /**
  * @title: pl1111w
- * @description: TODO
+ * @description: 图
  * @author: Kris
  * @date 2020/12/21 23:13
  */
@@ -53,7 +54,37 @@ public class GraphPractice {
 
         //显示一把邻结矩阵
         graph.showGraph();
-        graph.dfs();
+        // graph.dfs();
+        graph.bfs();
+    }
+
+    private void bfs() {
+        for (int i = 0; i < isVisited.length; i++) {
+            if (!isVisited[i]) {
+                bfs(isVisited, i);
+            }
+        }
+    }
+
+    private void bfs(boolean[] isVisited, int i) {
+
+        System.out.println(getValueByIndex(i) + "=>");
+        isVisited[i] = true;
+        LinkedList queue = new LinkedList();
+        queue.add(i);
+        while (!queue.isEmpty()) {
+            int u = (Integer) queue.poll();
+            int w = getFirstNeighbor(u);
+            while (w != -1) {
+                if (!isVisited[w]) {
+                    System.out.println(getValueByIndex(w) + "=>");
+                    isVisited[w] = true;
+                    queue.addLast(w);
+                }
+                w = getNextNeighbor(u, w);
+            }
+        }
+
     }
 
     private void dfs() {
