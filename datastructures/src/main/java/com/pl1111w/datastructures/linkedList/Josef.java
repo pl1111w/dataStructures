@@ -9,10 +9,15 @@ package com.pl1111w.datastructures.linkedList;
 public class Josef {
 
     public static void main(String[] args) {
-        JosefCircleSingleLinkedList circleSingleLinkedList = new JosefCircleSingleLinkedList();
-        circleSingleLinkedList.add(5);
-        circleSingleLinkedList.list();
-        circleSingleLinkedList.countBoy(1, 2, 5);
+//        JosefCircleSingleLinkedList circleSingleLinkedList = new JosefCircleSingleLinkedList();
+//        circleSingleLinkedList.add(5);
+//        circleSingleLinkedList.list();
+//        circleSingleLinkedList.countBoy(1, 2, 5);
+
+        JosefCirclePractice josefCirclePractice = new JosefCirclePractice();
+        josefCirclePractice.add(6);
+        josefCirclePractice.show();
+        josefCirclePractice.countBoy(1, 2, 6);
 
     }
 }
