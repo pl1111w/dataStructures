@@ -3,7 +3,6 @@ package com.pl1111w.datastructures.linkedList;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
@@ -150,17 +149,41 @@ public class ParentHeroNode {
         headNode.setNext(reverseHeroNode.getNext());
         return headNode;
     }
+
+    //单链表翻转practice
+    public HeroNode reverse(HeroNode headNode) {
+
+        if (headNode.getNext() == null || headNode.getNext().getNext() == null) {
+            return headNode;
+        }
+        HeroNode reverse = new HeroNode(0, "", "");
+        HeroNode next = null;
+        HeroNode heroNode = headNode.getNext();
+        while (heroNode != null) {
+            next = heroNode.getNext();
+            HeroNode temp = null;
+            if (reverse.getNext() != null) {
+                temp = reverse.getNext();
+            }
+            reverse.setNext(heroNode);
+            reverse.getNext().setNext(temp);
+            heroNode = next;
+        }
+        headNode.setNext(reverse);
+        return headNode;
+    }
+
     public String InversePrintHeroNode(HeroNode headNode) {
         Stack<HeroNode> stack = new Stack<>();
         HeroNode heroNode = headNode.getNext();
         while (heroNode != null) {
             HeroNode next = heroNode.getNext();
-           // heroNode.setNext(null);
+            // heroNode.setNext(null);
             stack.push(heroNode);
             heroNode = next;
         }
         List<HeroNode> list = new ArrayList<>();
-        while (stack.size()>0){
+        while (stack.size() > 0) {
             list.add(stack.pop());
         }
         return list.toString();

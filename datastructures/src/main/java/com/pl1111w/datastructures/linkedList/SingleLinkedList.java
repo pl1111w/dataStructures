@@ -25,15 +25,15 @@ public class SingleLinkedList {
         parentHeroNode.addNode(node3);
         parentHeroNode.addNode(node4);
         System.out.println(parentHeroNode.toString());
+//
+//        parentHeroNode.addNodeByOrder(node2);
+//        parentHeroNode.addNodeByOrder(node1);
+//        parentHeroNode.addNodeByOrder(node3);
+//        parentHeroNode.addNodeByOrder(node4);
 
-        parentHeroNode.addNodeByOrder(node2);
-        parentHeroNode.addNodeByOrder(node1);
-        parentHeroNode.addNodeByOrder(node3);
-        parentHeroNode.addNodeByOrder(node4);
-
-        System.out.println("顺序添加： " + parentHeroNode.toString());
-        System.out.println("逆序打印："+parentHeroNode.InversePrintHeroNode(parentHeroNode.getHeadNode()));
-        System.out.println("链表翻转: "+parentHeroNode.reverseHeroNode(parentHeroNode.getHeadNode()));
+       // System.out.println("顺序添加： " + parentHeroNode.toString());
+       // System.out.println("逆序打印："+parentHeroNode.InversePrintHeroNode(parentHeroNode.getHeadNode()));
+        System.out.println("链表翻转: "+parentHeroNode.reverse(parentHeroNode.getHeadNode()));
         node4.setNickName("林教头");
         parentHeroNode.updateNode(node4);
         parentHeroNode.updateNode(node5);
