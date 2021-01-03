@@ -1,5 +1,7 @@
 package com.pl1111w.datastructures.tree.leeCode;
 
+import java.util.Stack;
+
 /**
  * @title: pl1111w
  * @description: 通过先序遍历中序遍历构建二叉树
@@ -19,6 +21,8 @@ public class RebuildTree {
         System.out.println(treeNode);
         TreeNode treeNode2 = rebuildTree2(inOrder.length - 1, preOrder, inOrder);
         System.out.println(treeNode2);
+        TreeNode treeNode3 = rebuildTree3(preOrder, inOrder);
+        System.out.println(treeNode3);
     }
 
     private static TreeNode rebuildTree(int preStart, int inStart, int inEnd, int[] preOrder, int[] inOrder) {
@@ -51,5 +55,31 @@ public class RebuildTree {
         node.setLeft(rebuildTree2(node.getVal(), preOrder, inOrder));
         node.setRight(rebuildTree2(inEnd, preOrder, inOrder));
         return node;
+    }
+
+    private static TreeNode rebuildTree3(int[] preOrder, int[] inOrder) {
+        if (preOrder.length == 0) {
+            return null;
+        }
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode root = new TreeNode(preOrder[0]);
+        TreeNode cur = root;
+        for (int i = 1, j = 0; i < preOrder.length; i++) {
+            if (cur.getVal() != inOrder[j]) {
+                cur.setLeft(new TreeNode(preOrder[i]));
+                stack.push(cur);
+                cur = cur.getLeft();
+            } else {
+                j++;
+                while (!stack.isEmpty() && stack.peek().getVal() == inOrder[j]) {
+                    cur = stack.pop();
+                    j++;
+                }
+                cur.setRight(new TreeNode(preOrder[i]));
+                cur = cur.getRight();
+            }
+        }
+
+        return root;
     }
 }
