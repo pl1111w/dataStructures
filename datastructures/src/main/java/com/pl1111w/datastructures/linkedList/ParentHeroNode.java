@@ -130,7 +130,7 @@ public class ParentHeroNode {
     }
 
     //单链表翻转
-    public HeroNode reversetHeroNode(HeroNode headNode) {
+    public HeroNode reverseHeroNode(HeroNode headNode) {
         if (headNode.getNext() == null || headNode.getNext().getNext() == null) {
             return headNode;
         }
@@ -150,7 +150,6 @@ public class ParentHeroNode {
         headNode.setNext(reverseHeroNode.getNext());
         return headNode;
     }
-
     public String InversePrintHeroNode(HeroNode headNode) {
         Stack<HeroNode> stack = new Stack<>();
         HeroNode heroNode = headNode.getNext();

@@ -33,7 +33,7 @@ public class SingleLinkedList {
 
         System.out.println("顺序添加： " + parentHeroNode.toString());
         System.out.println("逆序打印："+parentHeroNode.InversePrintHeroNode(parentHeroNode.getHeadNode()));
-        System.out.println("链表翻转: "+parentHeroNode.reversetHeroNode(parentHeroNode.getHeadNode()));
+        System.out.println("链表翻转: "+parentHeroNode.reverseHeroNode(parentHeroNode.getHeadNode()));
         node4.setNickName("林教头");
         parentHeroNode.updateNode(node4);
         parentHeroNode.updateNode(node5);
