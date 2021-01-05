@@ -9,7 +9,7 @@ package com.pl1111w.datastructures.recursion;
 public class Fibonacci {
     public static void main(String[] args) {
         int total = fibonacci(6);
-        int t = noRecusionFibonacci(6);
+        int t = noRecursionFibonacci(6);
         System.out.println(total);
         System.out.println(t);
     }
@@ -24,7 +24,7 @@ public class Fibonacci {
         return fibonacci(i - 1) + fibonacci(i - 2);
     }
 
-    private static int noRecusionFibonacci(int i) {
+    private static int noRecursionFibonacci(int i) {
         if (i == 0 || i == 1) {
             return i;
         }
