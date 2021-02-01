@@ -8,11 +8,11 @@ package com.pl1111w.datastructures.tree.leeCode;
  */
 public class TreeNode {
 
-    private int val;
+     int val;
 
-    private TreeNode left;
+     TreeNode left;
 
-    private TreeNode right;
+     TreeNode right;
 
     public TreeNode(int val) {
         this.val = val;
