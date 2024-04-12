@@ -12,11 +12,11 @@ public class SelectSort {
 
     /**
      * 思路分析
-     * 遍历数组找到最小的那个元素，记录下标，与第i（初始为0）个位置元素交换位置
-     * i++ 继续遍历剩余元素
+     * 每轮遍历数组找到最小或者最大的那个元素，记录下这个位置 交换到合适位置
+     * {2, 10, 3, 6, 8, 7, 5, 4, 1, 9} 第一轮结束  {1, 10, 3, 6, 8, 7, 5, 4, 2, 9}
      **/
     public static void main(String[] args) {
-        int arr[] = {9, 2, 3, 6, 8, 7, 5, 4, 1, 10};
+        int arr[] = {2, 10, 3, 6, 8, 7, 5, 4, 1, 9};
         selectSort(arr);
         System.out.println(Arrays.toString(arr));
     }

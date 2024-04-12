@@ -14,14 +14,15 @@ public class InsertSort {
      * 思路分析：
      * 选择数组第1个元素，如果第个2元素小于第1个元素
      * 则第1个元素后移一位,第2个元素放到第1个元素位置
-     * 否则直接放到第1个元素后面，此时排序完成数组长度+1
+     * 否则直接放到第1个元素后面，此时【排序完成数组长度】+1
+     *
      * 继续判断第3个元素如果第3个元素小于第1个元素
-     * 则第1，2个都向后挪一位
+     * 则【排序完成数组长度第1，2】个都向后挪一位
      * 依次类推
      ***/
 
     public static void main(String[] args) {
-        int arr[] = {9, 2, 3, 6, 8, 7, 5, 4, 1, 10};
+        int arr[] = {5, 2, 6, 3, 8, 7, 9, 4, 1, 10};
         insertSort(arr);
         System.out.println(Arrays.toString(arr));
     }
@@ -40,7 +41,7 @@ public class InsertSort {
                 }
             }
             arr[j + 1] = temp;
-
+            System.out.println(Arrays.toString(arr));
         }
     }
 }

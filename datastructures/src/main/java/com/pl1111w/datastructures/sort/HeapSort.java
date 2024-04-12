@@ -12,7 +12,7 @@ public class HeapSort {
 
     /***
      * 思路分析：
-     * 1、首先遍历所有{i=[0->arr.length/2-1]}个父节点，
+     * 1、首先遍历所有i=[0 ~ arr.length/2-1]个父节点，
      * 与其子节点【i*2+1 || i* 2 +2】做比较，
      * 如果子节点【需要先判断左右子节点大小，取大值】
      * 值大于父节点，子节点与父节点交换位置
@@ -30,6 +30,7 @@ public class HeapSort {
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
             adjustHeap(i, arr, arr.length);
         }
+        System.out.println(Arrays.toString(arr));
         for (int j = arr.length - 1; j > 0; j--) {
             swap(0, j, arr);
             adjustHeap(0, arr, j);
