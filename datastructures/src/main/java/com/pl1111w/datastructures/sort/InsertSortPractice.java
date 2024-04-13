@@ -19,16 +19,16 @@ public class InsertSortPractice {
     private static void insertSort(int[] arr) {
 
         for (int i = 1; i < arr.length; i++) {
-            int value = arr[i];//要插入的数字
+            int temp = arr[i];
             int j;
             for (j = i - 1; j >= 0; j--) {
-                if (value < arr[j]) {
+                if (temp > arr[j]) {
                     arr[j + 1] = arr[j];
                 } else {
                     break;
                 }
             }
-            arr[j + 1] = value;
+            arr[j + 1] = temp;
         }
     }
 }

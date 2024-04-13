@@ -19,7 +19,7 @@ public class QuickSort {
      * 3、重复2直到left=right【此时相遇】
      * 4、基准值下标与left(即right)交换位置
      * 此时left左边均为小于基准值的数，右边都是大于基准值的数
-     * 5、 分为两部分的数组
+     * 5、 分为【两部分的数组】
      * 分别再次进行上述操作直到left不再小于right
      * 6、End
      **/
