@@ -12,35 +12,30 @@ import java.util.Arrays;
 public class QuickSortPractice {
 
     public static void main(String[] args) {
-        int arr[] = {9, 2, 3, 6, 8, 7, 5, 4, 1, 10};
+        int arr[] = {8, 2, 3, 6, 9, 7, 5, 4, 1, 10};
         quickSort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
     }
 
-    private static void quickSort(int[] arr, int low, int end) {
+    private static void quickSort(int[] arr, int left, int right) {
+        int low = left;
+        int end = right;
+        while (low < end) {
+            int temp = arr[low];
+            for (int i = 0; i < arr.length - 1; i++) {
+                if (temp > arr[low] && low < end) {
+                    low++;
+                } else if (temp > arr[end] && end > low) {
+                    end--;
+                } else {
+                    break;
+                }
+            }
+            arr[low] = arr[end];
+            arr[end] = temp;
+            quickSort(arr, left, low - 1);
+            quickSort(arr, end + 1, right);
+        }
 
-        int right = end;
-        int left = low;
-        if (low >= end) {
-            return;
-        }
-        int value = arr[left];
-        while (left < right) {
-            while (left < right && arr[right] > value) {
-                right--;
-            }
-            while (left < right && arr[left] <= value) {
-                left++;
-            }
-            if (left < right) {
-                int temp = arr[left];
-                arr[left] = arr[right];
-                arr[right] = temp;
-            }
-        }
-        arr[low] = arr[left];
-        arr[left] = value;
-        quickSort(arr, low, left - 1);
-        quickSort(arr, left + 1, end);
     }
 }
