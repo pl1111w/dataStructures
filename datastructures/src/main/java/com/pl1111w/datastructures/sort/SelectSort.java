@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * @title: pl1111w
- * @description: TODO
+ * @description: 选择排序 每次确定一个最大或者最小位置
  * @author: Kris
  * @date 2020/10/27 22:14
  */
@@ -13,7 +13,9 @@ public class SelectSort {
     /**
      * 思路分析
      * 每轮遍历数组找到最小或者最大的那个元素，记录下这个位置 交换到合适位置
-     * {2, 10, 3, 6, 8, 7, 5, 4, 1, 9} 第一轮结束  {1, 10, 3, 6, 8, 7, 5, 4, 2, 9}
+     * {2, 10, 3, 6, 8, 7, 5, 4, 1, 9}
+     * 第一轮结束
+     * {1, 10, 3, 6, 8, 7, 5, 4, 2, 9}
      **/
     public static void main(String[] args) {
         int arr[] = {2, 10, 3, 6, 8, 7, 5, 4, 1, 9};

@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 /**
  * @title: pl1111w
- * @description: 快速排序
+ * @description: 快速排序 分成两拨计算
  * @author: Kris
  * @date 2020/10/30 21:20
  */
