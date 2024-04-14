@@ -17,30 +17,32 @@ public class MergeSortPractice {
     }
 
     private static void mergeSort(int[] arr, int startIndex, int endIndex, int[] tempArr) {
+
         if (startIndex >= endIndex) {
             return;
         }
-        int middle = startIndex + (endIndex - startIndex) / 2;
-        mergeSort(arr, startIndex, middle, tempArr);
-        mergeSort(arr, middle + 1, endIndex, tempArr);
-        merge(arr, tempArr, startIndex, middle, endIndex);
+        int middleIndex = (startIndex + endIndex) / 2;
+        mergeSort(arr, startIndex, middleIndex, tempArr);
+        mergeSort(arr, middleIndex + 1, endIndex, tempArr);
+        split(arr, startIndex, middleIndex, endIndex, tempArr);
+
     }
 
-    private static void merge(int[] arr, int[] tempArr, int startIndex, int middle, int endIndex) {
-        for (int copy = startIndex; copy <= endIndex; copy++) {
-            tempArr[copy] = arr[copy];
+    private static void split(int[] arr, int start, int middle, int end, int[] tempArr) {
+        for (int i = start; i <= end; i++) {
+            tempArr[i] = arr[i];
         }
-        int left = startIndex;
+        int left = start;
         int right = middle + 1;
-        for (int i = startIndex; i <= endIndex; i++) {
+        for (int i = start; i <= end; i++) {
             if (left > middle) {
                 arr[i] = tempArr[right++];
-            } else if (right > endIndex) {
+            } else if (right > end) {
                 arr[i] = tempArr[left++];
-            } else if (tempArr[left] < tempArr[right]) {
-                arr[i] = tempArr[left++];
-            } else {
+            } else if (tempArr[right] < tempArr[left]) {
                 arr[i] = tempArr[right++];
+            } else {
+                arr[i] = tempArr[left++];
             }
         }
     }

@@ -20,6 +20,7 @@ public class HeapSortPractice {
     private static void heapSort(int[] arr) {
         for (int i = arr.length / 2 - 1; i >= 0; i--) {
             adjustHeap(i, arr, arr.length);
+            System.out.println(Arrays.toString(arr));
         }
         for (int i = arr.length - 1; i >= 0; i--) {
             swap(0, arr, i);
@@ -39,13 +40,13 @@ public class HeapSortPractice {
             if (j + 1 < length && arr[j + 1] > arr[j]) {
                 j++;
             }
-            if (value < arr[j]) {
+            if (arr[j] > value) {
                 arr[i] = arr[j];
                 i = j;
-            } else {
+                arr[i] = value;
+            }else {
                 break;
             }
-            arr[i] = value;
         }
     }
 }

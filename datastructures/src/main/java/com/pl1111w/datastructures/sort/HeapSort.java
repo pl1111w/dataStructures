@@ -27,10 +27,10 @@ public class HeapSort {
 
     private static void heapSort(int[] arr) {
 
-        for (int i = arr.length / 2 - 1; i >= 0; i--) {
+        for (int i = 0; i < arr.length / 2; i = i * 2 + 1) {
             adjustHeap(i, arr, arr.length);
         }
-        System.out.println(Arrays.toString(arr));
+        System.out.println("构建堆完毕： " + Arrays.toString(arr));
         for (int j = arr.length - 1; j > 0; j--) {
             swap(0, j, arr);
             adjustHeap(0, arr, j);
@@ -48,6 +48,7 @@ public class HeapSort {
 
         //找到子元素
         for (int j = i * 2 + 1; j < length; j = j * 2 + 1) {
+            //查看左右子树 找到值更大的一个与父节点交换
             if (j + 1 < length && arr[j + 1] > arr[j]) {
                 j++;
             }
