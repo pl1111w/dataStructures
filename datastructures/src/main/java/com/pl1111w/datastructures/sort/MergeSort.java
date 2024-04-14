@@ -39,6 +39,28 @@ public class MergeSort {
         split(arr, startIndex, middleIndex, endIndex, tempArr);
 
     }
+    //非递归
+    private static void mergeSort2(int[] arr, int startIndex, int endIndex, int[] tempArr) {
+
+        int gap = 1;
+        int length = arr.length ;
+        while (gap < length) {
+            //i += gap * 2 i每次跳到下一组
+            for (int i = 0; i < length; i += gap * 2) {
+                //要避免mid和right越界
+                int mid = i + gap - 1;
+                if (mid >= arr.length) {
+                    mid = arr.length - 1;//修正越界的情况
+                }
+                int right = mid + gap;
+                if (right >= arr.length) {//修正越界的情况
+                    right = arr.length - 1;
+                }
+                split(arr, i, mid, right, tempArr);
+            }
+            gap *= 2;
+        }
+    }
 
     private static void split(int[] arr, int start, int middle, int end, int[] tempArr) {
         for (int i = start; i <= end; i++) {

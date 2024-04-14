@@ -18,14 +18,24 @@ public class MergeSortPractice {
 
     private static void mergeSort(int[] arr, int startIndex, int endIndex, int[] tempArr) {
 
-        if (startIndex >= endIndex) {
-            return;
+        int gap = 1;
+        int length = arr.length ;
+        while (gap < length) {
+            //i += gap * 2 i每次跳到下一组
+            for (int i = 0; i < length; i += gap * 2) {
+                //要避免mid和right越界
+                int mid = i + gap - 1;
+                if (mid >= arr.length) {
+                    mid = arr.length - 1;//修正越界的情况
+                }
+                int right = mid + gap;
+                if (right >= arr.length) {//修正越界的情况
+                    right = arr.length - 1;
+                }
+                split(arr, i, mid, right, tempArr);
+            }
+            gap *= 2;
         }
-        int middleIndex = (startIndex + endIndex) / 2;
-        mergeSort(arr, startIndex, middleIndex, tempArr);
-        mergeSort(arr, middleIndex + 1, endIndex, tempArr);
-        split(arr, startIndex, middleIndex, endIndex, tempArr);
-
     }
 
     private static void split(int[] arr, int start, int middle, int end, int[] tempArr) {
