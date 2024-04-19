@@ -27,11 +27,11 @@ public class HeapSort {
 
     private static void heapSort(int[] arr) {
 
-        for (int i = 0; i < arr.length / 2; i = i * 2 + 1) {
+        for (int i = arr.length / 2 - 1; i >= 0; i--) {
             adjustHeap(i, arr, arr.length);
         }
         System.out.println("构建堆完毕： " + Arrays.toString(arr));
-        for (int j = arr.length - 1; j > 0; j--) {
+        for (int j = arr.length - 1; j >= 0; j--) {
             swap(0, j, arr);
             adjustHeap(0, arr, j);
         }
