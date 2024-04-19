@@ -17,24 +17,35 @@ public class QuickSortPractice {
     }
 
     private static void quickSort(int[] arr, int left, int right) {
-        int low = left;
-        int end = right;
-        while (low < end) {
-            int temp = arr[low];
-            for (int i = 0; i < arr.length - 1; i++) {
-                if (temp > arr[low] && low < end) {
-                    low++;
-                } else if (temp > arr[end] && end > low) {
-                    end--;
-                } else {
-                    break;
-                }
+        if (left >= right) return;
+        int p = partition(arr, left, right);
+        quickSort(arr, left, p - 1);
+        quickSort(arr, p + 1, right);
+    }
+
+    private static int partition(int[] arr, int left, int right) {
+        int pv = arr[left];
+        int i = left;
+        int j = right;
+        while (i < j) {
+            while (arr[j] > pv && i < j) {
+                j--;
             }
-            arr[low] = arr[end];
-            arr[end] = temp;
-            quickSort(arr, left, low - 1);
-            quickSort(arr, end + 1, right);
+            while (arr[i] <= pv && i <j) {
+                i++;
+            }
+            swap(arr, i, j);
         }
+        swap(arr, j, left);
+        //交换基准点
+        return j;
 
     }
+
+    private static void swap(int[] a, int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
+    }
+
 }

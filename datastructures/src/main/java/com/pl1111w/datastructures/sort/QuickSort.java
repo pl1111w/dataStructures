@@ -25,37 +25,45 @@ public class QuickSort {
      **/
 
     public static void main(String[] args) {
-        int arr[] = {9, 2, 3, 6, 8, 7, 5, 4, 1, 10};
+        int arr[] = {1, 7, 5, 3, 2, 4, 8, 6, 10, 9};
         quickSort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
     }
 
-    private static void quickSort(int[] arr, int start, int end) {
-
-        int right = end;
-        int left = start;
-        if (start >= end) {
-            return;
+    private static void quickSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int p = partition(arr, left, right);
+            quickSort(arr, left, p - 1);
+            quickSort(arr, p + 1, right);
         }
-        int temp = arr[left];
-        while (left < right) {
-            while (left < right && arr[right] > temp) {
-                right--;
+    }
+
+    private static int partition(int[] arr, int low, int end) {
+
+        int i = low;
+        int j = end;
+        int pv = arr[low];
+        while (i < j) {
+            //这两个while不能换位置
+            while (arr[j] > pv && i < j) {
+                j--;
             }
-            while (left < right && arr[left] <= temp) {
-                left++;
+            //这两个while不能换位置
+            while (arr[i] <= pv && i < j) {
+                i++;
             }
-            if (left < right) {
-                int value = arr[left];
-                arr[left] = arr[right];
-                arr[right] = value;
-            }
+            swap(arr, i, j);
+
         }
-        arr[start] = arr[left];
-        arr[left] = temp;
+        swap(arr, i, low);
+        //交换基准点
+        return i;
 
-        quickSort(arr, start, left - 1);
-        quickSort(arr, left + 1, end);
+    }
 
+    private static void swap(int[] a, int i, int j) {
+        int t = a[i];
+        a[i] = a[j];
+        a[j] = t;
     }
 }
