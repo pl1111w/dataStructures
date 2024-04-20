@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class HeapSortPractice {
 
     public static void main(String[] args) {
-        int arr[] = {10, 2, 3, 6, 8, 7, 5, 4, 1, 9};
+        int arr[] = {9, 2, 3, 6, 8, 7, 5, 4, 1, 10};
         heapSort(arr);
         System.out.println(Arrays.toString(arr));
 
@@ -22,7 +22,7 @@ public class HeapSortPractice {
             adjustHeap(i, arr, arr.length);
         }
         for (int i = arr.length - 1; i >= 0; i--) {
-            swap(0, arr, i);
+            swap(i, arr, 0);
             adjustHeap(0, arr, i);
         }
     }
@@ -36,16 +36,14 @@ public class HeapSortPractice {
     private static void adjustHeap(int i, int[] arr, int length) {
         int value = arr[i];
         for (int j = i * 2 + 1; j < length; j = j * 2 + 1) {
-            if (j + 1 < length && arr[j + 1] > arr[j]) {
+            if (j + 1 < length && arr[j] < arr[j + 1]) {
                 j++;
             }
-            if (arr[j] > value) {
-                arr[i] = arr[j];
+            if (value < arr[j]) {
+                swap(i, arr, j);
                 i = j;
-                arr[i] = value;
-            }else {
-                break;
             }
         }
+
     }
 }

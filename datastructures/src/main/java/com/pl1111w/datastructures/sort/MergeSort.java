@@ -28,15 +28,13 @@ public class MergeSort {
 
     private static void mergeSort(int[] arr, int start, int end, int[] tempArr) {
 
-        int startIndex = start;
-        int endIndex = end;
-        if (endIndex <= startIndex) {
+        if (end <= start) {
             return;
         }
-        int middleIndex = (endIndex + startIndex) / 2;
-        mergeSort(arr, startIndex, middleIndex, tempArr);
-        mergeSort(arr, middleIndex + 1, endIndex, tempArr);
-        split(arr, startIndex, middleIndex, endIndex, tempArr);
+        int middleIndex = (end + start) / 2;
+        mergeSort(arr, start, middleIndex, tempArr);
+        mergeSort(arr, middleIndex + 1, end, tempArr);
+        split(arr, start, middleIndex, end, tempArr);
 
     }
     //非递归
